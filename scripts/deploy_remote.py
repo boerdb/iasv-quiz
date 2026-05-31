@@ -107,11 +107,15 @@ NODE_ENV=production
     run(ssh, f"chmod +x {REMOTE_DIR}/scripts/deploy.sh", check=False)
     run(ssh, f"cd {REMOTE_DIR} && npm ci", timeout=900)
     run(ssh, f"cd {REMOTE_DIR} && npx prisma migrate deploy", timeout=300)
-    run(
-        ssh,
-        f"""cd {REMOTE_DIR} && COUNT=$(mysql -h {DB_HOST} -u admin -pkerkpoort iasv_quiz -N -e "SELECT COUNT(*) FROM questions" 2>/dev/null || echo 0) && if [ "${{COUNT:-0}}" -lt 100 ]; then npm run db:seed; else echo "Vragenbank OK ($COUNT vragen)"; fi""",
-        timeout=300,
-    )
+    reseed = os.environ.get("RESEED", "").lower() in ("1", "true", "yes")
+    if reseed:
+        run(ssh, f"cd {REMOTE_DIR} && npm run db:seed", timeout=300)
+    else:
+        run(
+            ssh,
+            f"""cd {REMOTE_DIR} && COUNT=$(npx tsx -e "import {{ prisma }} from './src/lib/prisma.ts'; process.stdout.write(String(await prisma.question.count())); await prisma.\\$disconnect();") && if [ "${{COUNT:-0}}" -lt 100 ]; then npm run db:seed; else echo "Vragenbank OK ($COUNT vragen)"; fi""",
+            timeout=300,
+        )
     run(ssh, f"cd {REMOTE_DIR} && npm run build", timeout=900)
 
     run(ssh, "npm install -g pm2", check=False)

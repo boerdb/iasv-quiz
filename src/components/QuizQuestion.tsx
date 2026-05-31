@@ -1,7 +1,9 @@
 "use client";
 
+import { useMemo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { shuffle } from "@/lib/quiz-utils";
 import type { OptionLetter, QuizQuestionPublic } from "@/lib/quiz-types";
 
 interface QuizQuestionProps {
@@ -12,7 +14,7 @@ interface QuizQuestionProps {
   disabled?: boolean;
 }
 
-const options: OptionLetter[] = ["A", "B", "C", "D"];
+const displayLetters: OptionLetter[] = ["A", "B", "C", "D"];
 
 export function QuizQuestion({
   question,
@@ -27,6 +29,11 @@ export function QuizQuestion({
     C: question.optionC,
     D: question.optionD,
   };
+
+  const optionOrder = useMemo(
+    () => shuffle(displayLetters),
+    [question.id],
+  );
 
   return (
     <motion.div
@@ -63,20 +70,20 @@ export function QuizQuestion({
       </h2>
 
       <div className="grid gap-3">
-        {options.map((letter) => (
+        {displayLetters.map((letter, index) => (
           <motion.button
             key={letter}
             type="button"
             disabled={disabled}
             whileHover={{ scale: disabled ? 1 : 1.02 }}
             whileTap={{ scale: disabled ? 1 : 0.98 }}
-            onClick={() => onAnswer(letter)}
+            onClick={() => onAnswer(optionOrder[index])}
             className="rounded-2xl border-2 border-teal-100 bg-gradient-to-r from-white to-teal-50 px-4 py-4 text-left transition hover:border-teal-300 hover:shadow-md disabled:opacity-60"
           >
             <span className="mr-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-teal-500 text-sm font-bold text-white">
               {letter}
             </span>
-            <span className="text-slate-700">{optionMap[letter]}</span>
+            <span className="text-slate-700">{optionMap[optionOrder[index]]}</span>
           </motion.button>
         ))}
       </div>
