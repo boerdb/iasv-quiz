@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="96" fill="#14B8A6"/>
+  <circle cx="256" cy="220" r="120" fill="#99F6E4"/>
+  <path d="M176 220c0-44 36-80 80-80s80 36 80 80" stroke="#0F766E" stroke-width="20" stroke-linecap="round"/>
+  <path d="M120 320c32 44 76 68 136 68s104-24 136-68" stroke="#FBBF24" stroke-width="20" stroke-linecap="round"/>
+  <text x="256" y="450" text-anchor="middle" fill="white" font-size="56" font-family="Arial, sans-serif" font-weight="700">iASV Quiz</text>
+</svg>

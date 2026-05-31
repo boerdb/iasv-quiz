@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum CorrectOption {
+  A
+  B
+  C
+  D
+}
+
+model Question {
+  id             Int           @id @default(autoincrement())
+  questionText   String        @map("question_text") @db.Text
+  imageUrl       String?       @map("image_url") @db.VarChar(255)
+  optionA        String        @map("option_a") @db.VarChar(500)
+  optionB        String        @map("option_b") @db.VarChar(500)
+  optionC        String        @map("option_c") @db.VarChar(500)
+  optionD        String        @map("option_d") @db.VarChar(500)
+  correctOption  CorrectOption @map("correct_option")
+  explanation    String        @db.Text
+  category       String        @db.VarChar(100)
+  difficulty     Int           @default(1)
+  isActive       Boolean       @default(true) @map("is_active")
+  quizAnswers    QuizAnswer[]
+
+  @@map("questions")
+}
+
+model QuizSession {
+  id          Int          @id @default(autoincrement())
+  playerName  String       @map("player_name") @db.VarChar(100)
+  score       Int?
+  startedAt   DateTime     @default(now()) @map("started_at")
+  completedAt DateTime?    @map("completed_at")
+  answers     QuizAnswer[]
+
+  @@map("quiz_sessions")
+}
+
+model QuizAnswer {
+  id             Int           @id @default(autoincrement())
+  sessionId      Int           @map("session_id")
+  questionId     Int           @map("question_id")
+  selectedOption CorrectOption @map("selected_option")
+  isCorrect      Boolean       @map("is_correct")
+  session        QuizSession   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  question       Question      @relation(fields: [questionId], references: [id])
+
+  @@map("quiz_answers")
+}

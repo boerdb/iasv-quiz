@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# iASV Beademing Quiz
 
-## Getting Started
+Vrolijke PWA-quiz over Intelligent Adaptive Support Ventilation (iASV/ASV) op Hamilton-ventilatoren.
 
-First, run the development server:
+## Features
 
-```bash
+- 50 iASV-vragen in MariaDB
+- Elke quiz: 10 willekeurige vragen
+- Score 0–10 (1 punt per goed antwoord)
+- Uitleg bij foute antwoorden na afloop
+- Scoreboard met naam
+- Installeerbaar als PWA
+
+## Lokaal ontwikkelen
+
+```powershell
+cd C:\DEV\iasv-quiz
+npm install
+npx prisma migrate deploy
+npm run db:seed
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Productie (server 192.168.1.32)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Zelfde setup als [museum-pwa](../museum-pwa): PM2 op poort **3012**, map `/var/www/iasv-quiz`.
 
-## Learn More
+Zie [docs/DEPLOY.md](docs/DEPLOY.md) voor volledige instructies.
 
-To learn more about Next.js, take a look at the following resources:
+```powershell
+python scripts/deploy_remote.py
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Database
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+MariaDB op **192.168.1.14**, database `iasv_quiz`, user `admin`.
 
-## Deploy on Vercel
+```env
+DATABASE_URL=mysql://admin:kerkpoort@192.168.1.14:3306/iasv_quiz
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Script | Beschrijving |
+|--------|--------------|
+| `npm run dev` | Development server |
+| `npm run build` | Productie build |
+| `npm run start` | Productie start (PORT via PM2) |
+| `npm run db:seed` | 50 vragen laden |
+| `python scripts/deploy_remote.py` | Deploy naar .32 |
