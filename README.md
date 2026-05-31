@@ -23,9 +23,11 @@ npm run dev
 
 Open http://localhost:3000
 
-## Productie (server 192.168.1.32)
+## Productie
 
-Zelfde setup als [museum-pwa](../museum-pwa): PM2 op poort **3012**, map `/var/www/iasv-quiz`.
+Live op **https://iasv-quiz.clvs.nl** (server 192.168.1.32, PM2 poort **3012**, map `/var/www/iasv-quiz`).
+
+Zelfde setup als [museum-pwa](../museum-pwa).
 
 Zie [docs/DEPLOY.md](docs/DEPLOY.md) voor volledige instructies.
 

@@ -1,5 +1,7 @@
 # iASV Quiz — productie op Next-server (192.168.1.32)
 
+**Live:** https://iasv-quiz.clvs.nl
+
 ## Architectuur
 
 ```
@@ -64,7 +66,7 @@ Voeg in `config.yml` toe (pad kan verschillen):
 
 ```yaml
 ingress:
-  - hostname: iasv.jouwdomein.nl
+  - hostname: iasv-quiz.clvs.nl
     service: http://127.0.0.1:3012
   - service: http_status:404
 ```
