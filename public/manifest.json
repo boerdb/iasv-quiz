@@ -3,6 +3,7 @@
   "short_name": "iASV Quiz",
   "description": "Leer iASV beademing met 10 random quizvragen en uitleg.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#e8f7f5",
   "theme_color": "#14b8a6",

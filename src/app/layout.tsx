@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Nunito } from "next/font/google";
+import { PwaPrompts } from "@/components/PwaPrompts";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -20,6 +21,10 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     title: "iASV Quiz",
   },
+  icons: {
+    icon: "/icons/icon-192.svg",
+    apple: "/icons/icon-512.svg",
+  },
 };
 
 export const viewport: Viewport = {
@@ -36,7 +41,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="nl" className={`${nunito.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <PwaPrompts />
+      </body>
     </html>
   );
 }
