@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 import { PrismaClient } from "../src/generated/prisma/client";
-import { shuffleQuestionOptions } from "../src/lib/quiz-utils";
+import { balanceQuestionOptions, shuffleQuestionOptions } from "../src/lib/quiz-utils";
 import { questions } from "./questions-data";
 
 const connectionString = process.env.DATABASE_URL;
@@ -18,7 +18,9 @@ async function main() {
   await prisma.question.deleteMany();
 
   for (const question of questions) {
-    await prisma.question.create({ data: shuffleQuestionOptions(question) });
+    await prisma.question.create({
+      data: balanceQuestionOptions(shuffleQuestionOptions(question)),
+    });
   }
 
   console.log(`Seeded ${questions.length} questions.`);
