@@ -113,7 +113,7 @@ NODE_ENV=production
     else:
         run(
             ssh,
-            f"""cd {REMOTE_DIR} && COUNT=$(npx tsx -e "import {{ prisma }} from './src/lib/prisma.ts'; process.stdout.write(String(await prisma.question.count())); await prisma.\\$disconnect();") && if [ "${{COUNT:-0}}" -lt 100 ]; then npm run db:seed; else echo "Vragenbank OK ($COUNT vragen)"; fi""",
+            f"""cd {REMOTE_DIR} && COUNT=$(npx tsx scripts/count-questions.ts 2>/dev/null | tail -1) && if [ "${{COUNT:-0}}" -lt 100 ]; then npm run db:seed; else echo "Vragenbank OK ($COUNT vragen)"; fi""",
             timeout=300,
         )
     run(ssh, f"cd {REMOTE_DIR} && npm run build", timeout=900)
