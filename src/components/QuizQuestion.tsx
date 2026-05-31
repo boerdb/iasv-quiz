@@ -52,6 +52,7 @@ export function QuizQuestion({
             alt="Illustratie bij quizvraag"
             width={640}
             height={320}
+            unoptimized
             className="mx-auto h-auto w-full max-w-md"
           />
         </div>

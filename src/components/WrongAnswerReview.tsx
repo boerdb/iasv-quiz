@@ -34,6 +34,7 @@ export function WrongAnswerReviewList({
                 alt="Illustratie"
                 width={480}
                 height={240}
+                unoptimized
                 className="mx-auto h-auto w-full max-w-sm"
               />
             </div>
