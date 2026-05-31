@@ -4,7 +4,7 @@ Vrolijke PWA-quiz over Intelligent Adaptive Support Ventilation (iASV/ASV) op Ha
 
 ## Features
 
-- 50 iASV-vragen in MariaDB
+- 100 iASV-vragen in MariaDB
 - Elke quiz: 10 willekeurige vragen
 - Score 0–10 (1 punt per goed antwoord)
 - Uitleg bij foute antwoorden na afloop
@@ -50,5 +50,5 @@ DATABASE_URL=mysql://admin:kerkpoort@192.168.1.14:3306/iasv_quiz
 | `npm run dev` | Development server |
 | `npm run build` | Productie build |
 | `npm run start` | Productie start (PORT via PM2) |
-| `npm run db:seed` | 50 vragen laden |
+| `npm run db:seed` | 100 vragen laden |
 | `python scripts/deploy_remote.py` | Deploy naar .32 |

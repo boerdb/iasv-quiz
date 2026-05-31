@@ -64,7 +64,7 @@ export default function HomePage() {
 
           <ul className="mb-8 grid gap-3 text-sm text-slate-700 md:grid-cols-3">
             <li className="rounded-2xl bg-teal-50 px-4 py-3 text-center">
-              📚 50 vragen in de bank
+              📚 100 vragen in de bank
             </li>
             <li className="rounded-2xl bg-amber-50 px-4 py-3 text-center">
               🎲 10 random per quiz

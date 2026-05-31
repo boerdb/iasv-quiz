@@ -109,7 +109,7 @@ NODE_ENV=production
     run(ssh, f"cd {REMOTE_DIR} && npx prisma migrate deploy", timeout=300)
     run(
         ssh,
-        f"""cd {REMOTE_DIR} && COUNT=$(mysql -h {DB_HOST} -u admin -pkerkpoort iasv_quiz -N -e "SELECT COUNT(*) FROM questions" 2>/dev/null || echo 0) && if [ "${{COUNT:-0}}" -lt 50 ]; then npm run db:seed; else echo "Vragenbank OK ($COUNT vragen)"; fi""",
+        f"""cd {REMOTE_DIR} && COUNT=$(mysql -h {DB_HOST} -u admin -pkerkpoort iasv_quiz -N -e "SELECT COUNT(*) FROM questions" 2>/dev/null || echo 0) && if [ "${{COUNT:-0}}" -lt 100 ]; then npm run db:seed; else echo "Vragenbank OK ($COUNT vragen)"; fi""",
         timeout=300,
     )
     run(ssh, f"cd {REMOTE_DIR} && npm run build", timeout=900)

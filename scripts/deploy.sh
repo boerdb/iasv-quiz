@@ -34,7 +34,7 @@ fi
 npm ci
 npx prisma migrate deploy
 QUESTION_COUNT=$(mysql -h "$DB_HOST" -u admin -pkerkpoort iasv_quiz -N -e "SELECT COUNT(*) FROM questions" 2>/dev/null || echo 0)
-if [[ "${QUESTION_COUNT:-0}" -lt 50 ]]; then
+if [[ "${QUESTION_COUNT:-0}" -lt 100 ]]; then
   echo "==> Seed vragen ($QUESTION_COUNT in DB)"
   npm run db:seed
 else
