@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { QuizImage } from "@/components/QuizImage";
 import { shuffle } from "@/lib/quiz-utils";
 import type { OptionLetter, QuizQuestionPublic } from "@/lib/quiz-types";
 
@@ -54,14 +54,7 @@ export function QuizQuestion({
 
       {question.imageUrl && (
         <div className="mb-5 overflow-hidden rounded-2xl bg-teal-50 p-4">
-          <Image
-            src={question.imageUrl}
-            alt="Illustratie bij quizvraag"
-            width={640}
-            height={320}
-            unoptimized
-            className="mx-auto h-auto w-full max-w-md"
-          />
+          <QuizImage src={question.imageUrl} alt="Illustratie bij quizvraag" />
         </div>
       )}
 

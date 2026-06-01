@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { QuizImage } from "@/components/QuizImage";
 import type { WrongAnswerReview } from "@/lib/quiz-types";
 
 interface WrongAnswerReviewListProps {
@@ -29,13 +29,10 @@ export function WrongAnswerReviewList({
         >
           {item.imageUrl && (
             <div className="mb-4 rounded-xl bg-teal-50 p-3">
-              <Image
+              <QuizImage
                 src={item.imageUrl}
                 alt="Illustratie"
-                width={480}
-                height={240}
-                unoptimized
-                className="mx-auto h-auto w-full max-w-sm"
+                maxWidthClass="max-w-sm"
               />
             </div>
           )}
